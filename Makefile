@@ -67,7 +67,6 @@ install-registry: install-ingress
 		--set "expose.ingress.hosts.core=registry.$$($(KUBECTL) get nodes -o jsonpath='{.items[0].status.addresses[0].address}').nip.io" \
 		--set "externalURL=http://registry.$$($(KUBECTL) get nodes -o jsonpath='{.items[0].status.addresses[0].address}').nip.io:32080" \
 		--set chartmuseum.enabled=false \
-		--set clair.enabled=false \
 		--set notary.enabled=false \
 		--set trivy.enabled=false \
 		--version=1.6.0 \
