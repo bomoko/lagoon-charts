@@ -56,6 +56,10 @@ install-ingress:
 
 .PHONY: install-registry
 install-registry: install-ingress
+	# the jobservice.jobLogger value is a workaround for a bug in the upstream
+	# helm chart. once version is bumped to one containing
+	# https://github.com/goharbor/harbor-helm/pull/870, this workaround can be
+	# removed.
 	$(HELM) upgrade \
 		--install \
 		--create-namespace \
@@ -69,6 +73,7 @@ install-registry: install-ingress
 		--set chartmuseum.enabled=false \
 		--set notary.enabled=false \
 		--set trivy.enabled=false \
+		--set 'jobservice.jobLogger={file}' \
 		--version=1.6.0 \
 		registry \
 		harbor/harbor
