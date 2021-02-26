@@ -50,7 +50,7 @@ install-ingress:
 		--set controller.service.nodePorts.https=32443 \
 		--set controller.config.proxy-body-size=100m \
 		--set controller.admissionWebhooks.enabled=false \
-		--version=3.15.2 \
+		--version=3.23.0 \
 		ingress-nginx \
 		ingress-nginx/ingress-nginx
 
@@ -70,7 +70,7 @@ install-registry: install-ingress
 		--set clair.enabled=false \
 		--set notary.enabled=false \
 		--set trivy.enabled=false \
-		--version=1.5.2 \
+		--version=1.6.0 \
 		registry \
 		harbor/harbor
 
@@ -97,7 +97,7 @@ install-mariadb:
 		--wait \
 		--timeout $(TIMEOUT) \
 		$$($(KUBECTL) get ns mariadb > /dev/null 2>&1 && echo --set auth.rootPassword=$$($(KUBECTL) get secret --namespace mariadb mariadb -o json | $(JQ) -r '.data."mariadb-root-password" | @base64d')) \
-		--version=9.1.4 \
+		--version=9.3.4 \
 		mariadb \
 		bitnami/mariadb
 
@@ -111,7 +111,7 @@ install-postgresql:
 		--wait \
 		--timeout $(TIMEOUT) \
 		$$($(KUBECTL) get ns postgresql > /dev/null 2>&1 && echo --set postgresqlPassword=$$($(KUBECTL) get secret --namespace postgresql postgresql -o json | $(JQ) -r '.data."postgresql-password" | @base64d')) \
-		--version=10.2.0 \
+		--version=10.3.7 \
 		postgresql \
 		bitnami/postgresql
 
@@ -125,7 +125,7 @@ install-mongodb:
 		--timeout $(TIMEOUT) \
 		$$($(KUBECTL) get ns mongodb > /dev/null 2>&1 && echo --set auth.rootPassword=$$($(KUBECTL) get secret --namespace mongodb mongodb -o json | $(JQ) -r '.data."mongodb-root-password" | @base64d')) \
 		--set tls.enabled=false \
-		--version=10.3.2 \
+		--version=10.7.1 \
 		mongodb \
 		bitnami/mongodb
 
